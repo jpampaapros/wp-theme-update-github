@@ -3,9 +3,9 @@
 require 'plugin-update-checker/plugin-update-checker.php';
 
 $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-	'https://github.com/jpampaapros/wp-plugin-update-github',
+	'https://github.com/jpampaapros/wp-theme-update-github',
 	__FILE__,
-	'wp-plugin-update-github'
+	'wp-theme-update-github'
 );
 
 // BRANCH
