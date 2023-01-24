@@ -14,3 +14,4 @@ $myUpdateChecker->setBranch('main');
 
 // ACCESS TOKEN
 $myUpdateChecker->setAuthentication('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');
+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
