@@ -1,0 +1,52 @@
+version: '3.1'
+
+services:
+
+  wordpress:
+    image: wordpress:6.1
+    container_name: wp_theme_wordpress
+    restart: always
+    ports:
+      - 3000:80
+    depends_on:
+      - db
+    environment:
+      WORDPRESS_DEBUG: 1
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wp_user
+      WORDPRESS_DB_PASSWORD: wp_user_pass
+      WORDPRESS_DB_NAME: wp_app
+      WORDPRESS_TABLE_PREFIX: "wp_"
+    volumes:
+      - wp_theme_data:/var/www/html
+      - "./:/var/www/html/wp-content/themes/generatepress_child"
+      - "./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini"
+      - "./debug.log:/var/www/html/wp-content/debug.log"
+  db:
+    platform: linux/x86_64
+    image: mysql:5.7
+    container_name: wp_theme_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wp_app
+      MYSQL_USER: wp_user
+      MYSQL_PASSWORD: wp_user_pass
+    volumes:
+      - db_theme_data:/var/lib/mysql
+    ports:
+      - 3306:3306
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: wp_theme_phpmyadmin
+    ports:
+      - 9090:3000
+    environment:
+      MYSQL_USERNAME: root
+      MYSQL_ROOT_USERNAME: root
+      PMA_HOST: db
+
+volumes:
+  wp_theme_data: {}
+  db_theme_data: {}
